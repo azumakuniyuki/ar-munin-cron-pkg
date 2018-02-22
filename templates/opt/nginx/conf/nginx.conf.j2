@@ -125,10 +125,9 @@ http {
     # directives and blocks.
     #
     # http://nginx.org/en/docs/ngx_core_module.html#include
-
     server {
         listen {{ munin.httpd.conf.listen }};
-        server_name {{ munin.httpd.conf.servername }};
+        server_name {{ ansible_eth0.ipv4.address }};
         server_name_in_redirect off;
 
         location ~ /(images|css|js|\.ico|\.txt) {
@@ -145,22 +144,17 @@ http {
         }
 
         location / {
-            root    {{ munin.httpd.conf.documentroot }};
+            root {{ munin.cron.conf.htmldir }};
             index   index.html index.htm;
+            auth_basic "Administrator Login";
+            auth_basic_user_file /etc/munin/munin-htpasswd;
+            break;
 
             # http://nginx.org/en/docs/http/ngx_http_access_module.html
             # The rules are checked in sequence until the first match is found.
             #
             # allow 127.0.0.1;
             # deny all;
-        }
-
-        # access munin
-        location /munin {
-            root {{ munin.cron.conf.htmldir }};
-            #auth_basic "Administrator Login";
-            #auth_basic_user_file /etc/munin/munin-htpasswd;
-            break;
         }
     }
 
