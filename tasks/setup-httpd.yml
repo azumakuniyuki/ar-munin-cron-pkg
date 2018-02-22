@@ -111,7 +111,6 @@
     owner=root
     group=root
   with_items:
-    - conf/virthosts
     - keys
 
 - name: setup-httpd | Deploy {{ munin.httpd.serverroot }}/conf/nginx.conf
