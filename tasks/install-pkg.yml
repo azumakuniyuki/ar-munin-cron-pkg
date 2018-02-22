@@ -6,6 +6,7 @@
 #                                                           \_\_|        |___/_/                            
 - name: install-pkg | Install munin
   when: ansible_os_family == "RedHat"
-  yum:  name={{ item }} state=present
-  with_items: munin.cron.packages.install
+  yum:  name={{ item }} state=present enablerepo="epel"
+  with_items:
+    - "munin"
 

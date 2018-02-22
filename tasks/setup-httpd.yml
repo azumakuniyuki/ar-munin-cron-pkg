@@ -31,7 +31,7 @@
     name={{ item.name }}
     gid={{ item.gid }}
     state=present
-  with_items: munin.httpd.user.groups
+  with_items: "{{ munin.httpd.user.groups }}"
 
 - name: setup-httpd | User for httpd should be created
   user: >
@@ -46,22 +46,22 @@
     state=present
 
 
-- name: setup-httpd | Download nginx at {{ buildroot }}
+- name: setup-httpd | Download nginx at {{ munin.cron.workingdir }}
   get_url: >
     url=http://nginx.org/download/nginx-{{ munin.httpd.version }}.tar.gz
-    dest={{ buildroot }}/nginx-{{ munin.httpd.version }}.tar.gz
+    dest={{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}.tar.gz
 
-- name: setup-httpd | Extract {{ buildroot }}/nginx-{{ munin.httpd.version }}
+- name: setup-httpd | Extract {{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}
   unarchive: >
-    src={{ buildroot }}/nginx-{{ munin.httpd.version }}.tar.gz
-    dest={{ buildroot }}
-    creates={{ buildroot }}/nginx-{{ munin.httpd.version }}
+    src={{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}.tar.gz
+    dest={{ munin.cron.workingdir }}
+    creates={{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}
     copy=no
 
 
 - name: setup-httpd | REBUILD | make clean
   command: >
-    chdir={{ buildroot }}/nginx-{{ munin.httpd.version }}/
+    chdir={{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}/
     removes=Makefile
     make clean
   when: munin.httpd.rebuild == True
@@ -69,7 +69,7 @@
 - name: setup-httpd | nginx should be configured
   notify: Restart nginx
   command: >
-    chdir={{ buildroot }}/nginx-{{ munin.httpd.version }}/
+    chdir={{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}/
     creates=Makefile
     /bin/sh configure
     --prefix={{ munin.httpd.serverroot }}
@@ -90,7 +90,7 @@
 - name: setup-httpd | make nginx {{ munin.httpd.version }}
   notify: Restart nginx
   command: >
-    chdir={{ buildroot }}/nginx-{{ munin.httpd.version }}/
+    chdir={{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}/
     creates=objs/nginx
     make
   register: make_nginx_binary
@@ -99,7 +99,7 @@
   when: make_nginx_binary.changed
   notify: Restart nginx
   command: >
-    chdir={{ buildroot }}/nginx-{{ munin.httpd.version }}/
+    chdir={{ munin.cron.workingdir }}/nginx-{{ munin.httpd.version }}/
     make install
 
 

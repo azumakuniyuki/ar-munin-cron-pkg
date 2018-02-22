@@ -30,8 +30,8 @@
 - name: make-config | Create Log directory
   file: >
     path={{ munin.cron.conf.logdir }}
-    mode=0775
-    owner=root
+    mode=0755
+    owner=munin
     group=munin
     state=directory
 
