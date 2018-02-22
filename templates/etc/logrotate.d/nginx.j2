@@ -1,0 +1,13 @@
+{{ munin.httpd.serverroot }}/logs/*log
+{
+    daily
+    rotate 64
+    missingok
+    notifempty
+    compress
+    sharedscripts
+    postrotate
+        [ ! -f {{ munin.httpd.serverroot }}/logs/nginx.pid ] || kill -USR1 `cat {{ munin.httpd.serverroot }}/logs/nginx.pid`
+    endscript
+}
+
