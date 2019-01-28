@@ -6,34 +6,34 @@
 #                                                           \_\_|        |___/_/                                         
 munin:
   cron:
-    enabled: true
-    workingdir: /usr/local/src
-    conf:
-      dbdir:   /var/lib/munin
-      htmldir: /var/www/html/munin
-      logdir:  /var/log/munin
-      rundir:  /var/run/munin
-  httpd:
     enabled: True
-    started: True
+    workingdir: "/usr/local/src"
+    conf:
+      dbdir:   "/var/lib/munin"
+      htmldir: "/var/www/html/munin"
+      logdir:  "/var/log/munin"
+      rundir:  "/var/run/munin"
+  httpd:
+    enabled: False
+    started: False
     rebuild: False
-    version: 1.13.9
-    serverroot: /opt/munin/httpd
-    initscript: munin-httpd
-    workingdir: /usr/local/src
+    version: "1.15.8"
+    serverroot: "/opt/munin/httpd"
+    initscript: "munin-httpd"
+    workingdir: "/usr/local/src"
     user:
-      username: nginx
+      username: "nginx"
       password: ''
       uid: 8192
       gid: 8192
-      group: nginx
+      group: "nginx"
       groups: 
-        - { name: httpd, gid: 8001 }
-      shell: /sbin/nolgin
+        - { name: "httpd", gid: 8001 }
+      shell: "/sbin/nolgin"
       comment: "'nginx httpd server'"
     conf:
       listen: 8008
-      servername: 127.0.0.1
-      documentroot: /opt/munin/httpd/html
+      servername: "127.0.0.1"
+      documentroot: "/opt/munin/httpd/html"
 
 
