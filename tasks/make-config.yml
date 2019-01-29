@@ -6,61 +6,61 @@
 #                                                           \_\_|        |___/_/                            
 # make-config
 - name: make-config | Deploy logrotate.d/munin
-  template: >
-    src=etc/logrotate.d/munin.j2
-    dest=/etc/logrotate.d/munin
-    backup=no
+  template:
+    src:    "etc/logrotate.d/munin.j2"
+    dest:   "/etc/logrotate.d/munin"
+    backup: "no"
 
 - name: make-config | Create DB directory
-  file: >
-    path={{ munin.cron.conf.dbdir }}
-    mode=0755
-    owner=munin
-    group=munin
-    state=directory
+  file:
+    path:  "{{ munin.cron.conf.dbdir }}"
+    mode:  "0755"
+    owner: "munin"
+    group: "munin"
+    state: "directory"
 
 - name: make-config | Create HTML directory
-  file: >
-    path={{ munin.cron.conf.htmldir }}
-    mode=0755
-    owner=munin
-    group=munin
-    state=directory
+  file:
+    path:  "{{ munin.cron.conf.htmldir }}"
+    mode:  "0755"
+    owner: "munin"
+    group: "munin"
+    state: "directory"
 
 - name: make-config | Create Log directory
-  file: >
-    path={{ munin.cron.conf.logdir }}
-    mode=0755
-    owner=munin
-    group=munin
-    state=directory
+  file:
+    path:  "{{ munin.cron.conf.logdir }}"
+    mode:  "0755"
+    owner: "munin"
+    group: "munin"
+    state: "directory"
 
 - name: make-config | Create Run directory
-  file: >
-    path={{ munin.cron.conf.rundir }}
-    mode=0755
-    owner=munin
-    group=munin
-    state=directory
+  file:
+    path:  "{{ munin.cron.conf.rundir }}"
+    mode:  "0755"
+    owner: "munin"
+    group: "munin"
+    state: "directory"
 
 - name: make-config | Deploy /etc/munin/munin.conf
-  template: >
-    src=etc/munin/munin.conf.j2
-    dest=/etc/munin/munin.conf
-    backup=yes
+  template:
+    src:    "etc/munin/munin.conf.j2"
+    dest:   "/etc/munin/munin.conf"
+    backup: "yes"
 
 - name: make-config | Deploy /etc/munin/munin-htpasswd
-  template: >
-    src=etc/munin/munin-htpasswd.j2
-    dest=/etc/munin/munin-htpasswd
-    backup=yes
+  template:
+    src:    "etc/munin/munin-htpasswd.j2"
+    dest:   "/etc/munin/munin-htpasswd"
+    backup: "yes"
 
 - name: make-config | Install crontab
   when: munin.cron.enabled == True
-  cron: >
-    name='munin monitor'
-    minute='*/5'
-    job='/usr/bin/munin-cron'
-    user=munin
-    state=present
+  cron:
+    name:   "'munin monitor'"
+    minute: "*/5"
+    job:    "/usr/bin/munin-cron"
+    user:   "munin"
+    state:  "present"
 

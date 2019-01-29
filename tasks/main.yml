@@ -6,5 +6,5 @@
 #                                                           \_\_|        |___/_/                            
 - include: install-pkg.yml
 - include: make-config.yml
+- include: build-local.yml
 - include: setup-httpd.yml
-  when: munin.httpd.enabled == True
