@@ -49,6 +49,13 @@
     dest:   "/etc/munin/munin.conf"
     backup: "yes"
 
+- name: make-config | Deploy each file in /etc/munin/conf.d
+  template:
+    src:  "{{ item }}"
+    dest: "/etc/munin/conf.d/{{ item | basename | replace('.j2', '') }}"
+    mode: "0644"
+  with_fileglob: "templates/etc/munin/conf.d/*.conf.j2"
+
 - name: make-config | Deploy /etc/munin/munin-htpasswd
   template:
     src:    "etc/munin/munin-htpasswd.j2"
