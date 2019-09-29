@@ -8,9 +8,7 @@
 - block:
     - name: install-pkg | Install munin
       yum:
-        name:  "{{ item }}"
+        name:  "munin"
         state: "present"
         enablerepo: "epel"
-      with_items:
-        - "munin"
   when: ansible_os_family == "RedHat"

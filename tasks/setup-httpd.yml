@@ -9,11 +9,10 @@
     - name: setup-httpd | RedHat | Each package for nginx should be installed
       when: ansible_os_family == "RedHat"
       yum:
-        name:  "{{ item }}"
         state: "present"
-      with_items:
-        - "pcre"
-        - "pcre-devel"
+        name:
+          - "pcre"
+          - "pcre-devel"
 
     - name: setup-httpd | Debian | Each package for nginx should be installed
       when: ansible_os_family == "Debian"
