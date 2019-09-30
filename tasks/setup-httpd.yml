@@ -17,11 +17,10 @@
     - name: setup-httpd | Debian | Each package for nginx should be installed
       when: ansible_os_family == "Debian"
       apt:
-        pkg:   "{{ item }}"
         state: "present"
-      with_items:
-        - "libpcre3"
-        - "libpcre3-dev"
+        pkg:
+          - "libpcre3"
+          - "libpcre3-dev"
 
     - name: setup-httpd | Group for httpd should be created
       group:
