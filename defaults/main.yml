@@ -9,8 +9,11 @@ munin:
     enabled: True
     workingdir: "/usr/local/src"
     conf:
+      basedir: "/etc/munin/conf.d"
+ #    basedir: "/etc/munin/munin-conf.d"
       dbdir:   "/var/lib/munin"
       htmldir: "/var/www/html/munin"
+#     htmldir: "/var/cache/munin/www"
       logdir:  "/var/log/munin"
       rundir:  "/var/run/munin"
   httpd:

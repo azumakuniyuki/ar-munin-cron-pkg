@@ -52,7 +52,7 @@
 - name: make-config | Deploy each file in /etc/munin/conf.d
   template:
     src:  "{{ item }}"
-    dest: "/etc/munin/conf.d/{{ item | basename | replace('.j2', '') }}"
+    dest: "{{ munin.conf.basedir }}/{{ item | basename | replace('.j2', '') }}"
     mode: "0644"
   with_fileglob: "templates/etc/munin/conf.d/*.conf.j2"
 

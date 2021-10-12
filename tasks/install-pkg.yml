@@ -6,9 +6,17 @@
 #                                                           \_\_|        |___/_/                            
 # install-pkg
 - block:
-    - name: install-pkg | Install munin
+    - name: install-pkg | RedHat | Install munin
       yum:
         name:  "munin"
         state: "present"
         enablerepo: "epel"
   when: ansible_os_family == "RedHat"
+
+- block:
+    - name: install-pkg | Debian | Install munin
+      apt:
+        name:  "munin"
+        state: "present"
+  when: ansible_os_family == "Debian"
+
