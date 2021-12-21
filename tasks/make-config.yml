@@ -49,6 +49,12 @@
     dest:   "/etc/munin/munin.conf"
     backup: "yes"
 
+- name: make-config | Deploy cron job file for munin
+  template:
+    src:  "etc/cron.d/munin.j2"
+    dest: "/etc/cron.d/munin"
+    mode: "0644"
+
 - name: make-config | Deploy each file in /etc/munin/conf.d
   template:
     src:  "{{ item }}"
